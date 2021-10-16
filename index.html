@@ -1,122 +1,170 @@
-<html>
-    <head>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/webrtc-adapter/3.3.3/adapter.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js"></script>
-<script type="text/javascript" src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>  
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <link rel="stylesheet" type="text/css" href="css/sidebar.css">
-    <script src="js/script.js"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?= $title; ?></title>
+    
+    <?php include('extras/imports.php'); ?>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</head>
+<body>
 
-    </head>
-    <body>
+    <section>
+
         <!-- Top Navigation-->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-success">
-            <div class="container">
-                <a href="http://localhost/kkl2/" class="logo">
-                    <i><img src="asset/logo.png" class="w-25 h-25 mr-3" alt="" /></i>
-                </a>
-            </div>
-        </nav>
+        <?php include('extras/topnav.php'); ?>
         <!-- Top Navigation-->
 
         <div class="d-flex" id="wrapper">
 
             <!-- Sidebar-->
-            <div class="border-end bg-white" id="sidebar-wrapper">
-                <div class="sidebar-heading border-bottom bg-light">Menu</div>
-                    <div class="list-group list-group-flush">
-
-                        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="http://localhost/kkl2/dashboard/">ATM Queue</a>
-                        <li class="dropdown list-group-item list-group-item-action list-group-item-dark p-3">
-                                        <a href="#" class="text-white dropdown-toggle" data-toggle="dropdown">Appointment Requests</a>
-                                        <div class="dropdown-menu">
-                                            <a href="http://localhost/kkl2/dashboard/pending" class="dropdown-item">Pending</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a href="http://localhost/kkl2/dashboard/approved" class="dropdown-item">Approved</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a href="http://localhost/kkl2/dashboard/rejected" class="dropdown-item">Rejected</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a href="http://localhost/kkl2/dashboard/done"class="dropdown-item">Done</a>
-                                        </div>
-                        </li>
-                        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="http://localhost/kkl2/dashboard/profile">Account Settings</a>
-                        <a class="list-group-item list-group-item-action list-group-item-light p-3" style="cursor: pointer;" onclick="signout()">Logout</a>
-                        
-                        
-                    </div>
-            </div>
-
+            <?php include('extras/sidebar.php'); ?>
             <!-- Sidebar-->
 
             <!-- Page content wrapper-->
             <div id="page-content-wrapper">
                 
                 <!-- Bottom Navigation-->
-                <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-                    <div class="container-fluid">
-                        <button class="btn" id="sidebarToggle"><span class="navbar-toggler-icon"></span></button>
-                    </div>
-                </nav>
+                <?php include('extras/botnav.php'); ?>
                 <!-- Bottom Navigation-->
 
                 <!-- Page content-->
                 <div class="container mt-5">
             
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <h1>Scan the QR Code</h1>
-                                <video id="preview" width="100%"></video>
-                                <center>
-                                    <a class="btn btn-danger mt-5" href="http://localhost/kkl2/dashboard/">
-                                        Cancel
-                                    </a>
-                                </center>
+                    <div class="row">
+
+                        <div class="col">
+
+                            <?php
+                                $session = \Config\Services::session();
+                                //This shows success for inputs
+                                if($session->getFlashdata('success')){
+                                    echo '
+                                        <div id="flash_data" class="alert alert-success">
+                                            ' . $session->getFlashdata("success") . '
+                                        </div>
+                                    ';
+                                }
+                                //This shows errors for validation
+                                else if($session->getFlashdata('fail')){
+                                    echo '
+                                        <div id="flash_data" class="alert alert-danger">
+                                            ' . $session->getFlashdata('fail') . '
+                                        </div>
+                                    ';
+                                }
+                                
+                            ?>
+                            <!-- This shows errors for validation -->
+                            <?php if($validation):?>
+                                <div class="alert alert-danger"><ul><?= $validation->listErrors(); ?></ul></div>
+                            <?php endif?>
+                            <!-- This shows errors for validation -->
+
+                            <div class="row">
+
+                                <div class="col-lg-6 mb-5">
+                                    <h4><?= $title1; ?></h4>
+                                    <div class="container queue p-5">
+
+                                        <?php if($queue[1]):?>
+                                        <!-- queue box -->
+                                        <div class="row">
+                                            <div class="col-6 mt-1">
+                                                
+                                                <div class="small-box bg-info rounded">
+                                                    <div class="inner p-3">
+                                                        <p>Current Queue</p>
+                                                        <h1><?= $queue[0]['queueID'] ?></h1>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+
+                                            <div class="col-6 mt-1">
+                                                
+                                                <div class="small-box bg-warning rounded">
+                                                    <div class="inner p-3">
+                                                        <p>Your Queue</p>
+                                                        <h1><?= $queue[1]['queueID'] ?></h1>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>    
+                                        <!-- queue box -->
+
+                                        <?php else:?>
+                                        <!-- queue button -->
+                                        <center><h3><br><br>You have no queue number yet</h3></center>
+                                        <center>
+                                            <a class="btn btn-primary" href="http://localhost/qr/">
+                                                <i class="fas fa-camera pr-2"></i>Scan QR Code
+                                            </a>
+                                        </center>
+                                        <!-- queue button -->
+                                        <?php endif?>
+                                        
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 mb-5">
+                                    <h4><?= $title2; ?></h4>
+                                    <!-- Tables of appointments-->
+                                    <table class="table">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th>Book ID</th>
+                                                <th>Type</th>
+                                                <th>Time</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php 
+                                                if(!$bookInfo)
+                                                {
+                                                    if(!$validation)
+                                                    {
+                                                        echo 'No schedules for now.';
+                                                    }
+                                                    
+                                                }
+                                                else{
+                                                    foreach($bookInfo as $book)
+                                                    {
+                                                        echo 
+                                                            '<tr>
+                                                                <th scope="row" class="text-success">' . $book['bookID'] . '</th>
+                                                                <td scope="col">' . $book['apptType'] . '</td>
+                                                                <td scope="col">' . date("g:iA", strtotime($book['time'] )) . '</td>
+                                                            </tr>';
+                                                    }
+                                                        
+                                                }
+                                            ?>
+                                            
+                                        </tbody>
+                                    </table>
+                                    <!-- Tables of appointments-->
+                                </div>
+
                             </div>
+
                         </div>
+                        
+
                     </div>
-            
+                    
+
                 </div>
                 <!-- Page content-->
             </div>
             <!-- Page content wrapper-->
         </div>
 
-        
-    </body>
+    </section>
+    
+</body>
 </html>
-
-<script>
-    let scanner = new Instascan.Scanner({ video: document.getElementById('preview')});
-
-    Instascan.Camera.getCameras().then(function(cameras){
-    if(cameras.length > 0 ){
-        scanner.start(cameras[0]);
-    } else{
-        alert('No cameras found');
-    }
-            
-    }).catch(function(e) {
-        console.error(e);
-    });
-            
-    scanner.addListener('scan',function(c){
-        window.alert(c);
-        window.location.href = "http://localhost/kkl2/";
-    });
-
-    function signout(){
-        if(confirm("Are you sure you wanna logout?"))
-        {
-            window.location.href = "http://localhost/kkl2/auth/logout";
-        }
-        return false;
-    }
-            
-</script>
