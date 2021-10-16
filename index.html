@@ -107,8 +107,10 @@
     });
             
     scanner.addListener('scan',function(c){
-        window.alert(c);
-        window.location.href = "http://localhost/kkl2/";
+        if(c == "http://kkl-project.com")
+        {
+               window.alert(c);
+        }
     });
 
     function signout(){
