@@ -18,7 +18,7 @@
         <!-- Top Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-success">
             <div class="container">
-                <a href="http://localhost/kkl2/" class="logo">
+                <a href="http://localhost/kkl/" class="logo">
                     <i><img src="asset/logo.png" class="w-25 h-25 mr-3" alt="" /></i>
                 </a>
             </div>
@@ -32,20 +32,20 @@
                 <div class="sidebar-heading border-bottom bg-light">Menu</div>
                     <div class="list-group list-group-flush">
 
-                        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="http://localhost/kkl2/dashboard/">ATM Queue</a>
+                        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="http://localhost/kkl/dashboard/">ATM Queue</a>
                         <li class="dropdown list-group-item list-group-item-action list-group-item-dark p-3">
                                         <a href="#" class="text-white dropdown-toggle" data-toggle="dropdown">Appointment Requests</a>
                                         <div class="dropdown-menu">
-                                            <a href="http://localhost/kkl2/dashboard/pending" class="dropdown-item">Pending</a>
+                                            <a href="http://localhost/kkl/dashboard/pending" class="dropdown-item">Pending</a>
                                             <div class="dropdown-divider"></div>
-                                            <a href="http://localhost/kkl2/dashboard/approved" class="dropdown-item">Approved</a>
+                                            <a href="http://localhost/kkl/dashboard/approved" class="dropdown-item">Approved</a>
                                             <div class="dropdown-divider"></div>
-                                            <a href="http://localhost/kkl2/dashboard/rejected" class="dropdown-item">Rejected</a>
+                                            <a href="http://localhost/kkl/dashboard/rejected" class="dropdown-item">Rejected</a>
                                             <div class="dropdown-divider"></div>
-                                            <a href="http://localhost/kkl2/dashboard/done"class="dropdown-item">Done</a>
+                                            <a href="http://localhost/kkl/dashboard/done"class="dropdown-item">Done</a>
                                         </div>
                         </li>
-                        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="http://localhost/kkl2/dashboard/profile">Account Settings</a>
+                        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="http://localhost/kkl/dashboard/profile">Account Settings</a>
                         <a class="list-group-item list-group-item-action list-group-item-light p-3" style="cursor: pointer;" onclick="signout()">Logout</a>
                         
                         
@@ -74,7 +74,7 @@
                                 <h1>Scan the QR Code</h1>
                                 <video id="preview" width="100%"></video>
                                 <center>
-                                    <a class="btn btn-danger mt-5" href="http://localhost/kkl2/dashboard/">
+                                    <a class="btn btn-danger mt-5" href="http://localhost/kkl/dashboard/">
                                         Cancel
                                     </a>
                                 </center>
@@ -117,7 +117,7 @@
     scanner.addListener('scan',function(c){
         if(c == "http://kkl-project.com")
         {
-            window.location.href = "http://192.168.8.102/kkl2/dashboard/add_queue";
+            window.location.href = "http://192.168.8.102/kkl/dashboard/add_queue";
         }
     });
 
