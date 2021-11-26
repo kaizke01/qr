@@ -103,7 +103,7 @@
         }
         else
         {
-            scanner.start(cameras[0]);
+            scanner.start(cameras[1]);
         }
         
     } else{
@@ -117,14 +117,14 @@
     scanner.addListener('scan',function(c){
         if(c == "http://kkl-project.com")
         {
-            window.location.href = "http://192.168.43.202/kkl2/dashboard/add_queue";
+            window.location.href = "http://192.168.8.100/kkl/dashboard/add_queue";
         }
     });
 
     function signout(){
         if(confirm("Are you sure you wanna logout?"))
         {
-            window.location.href = "http://192.168.43.202/kkl2/auth/logout";
+            window.location.href = "http://192.168.8.100/kkl/auth/logout";
         }
         return false;
     }
