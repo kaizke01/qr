@@ -74,7 +74,7 @@
                                 <h1>Scan the QR Code</h1>
                                 <video id="preview" width="100%"></video>
                                 <center>
-                                    <a class="btn btn-danger mt-5" href="http://192.168.8.100/kkl/dashboard/">
+                                    <a class="btn btn-danger mt-5" href="https://kkl-system.000webhostapp.com/dashboard/">
                                         Cancel
                                     </a>
                                 </center>
@@ -117,14 +117,14 @@
     scanner.addListener('scan',function(c){
         if(c == "http://kkl-project.com")
         {
-            window.location.href = "http://192.168.8.100/kkl/dashboard/add_queue";
+            window.location.href = "https://kkl-system.000webhostapp.com/dashboard/add_queue";
         }
     });
 
     function signout(){
         if(confirm("Are you sure you wanna logout?"))
         {
-            window.location.href = "http://192.168.8.100/kkl/auth/logout";
+            window.location.href = "https://kkl-system.000webhostapp.com/auth/logout";
         }
         return false;
     }
